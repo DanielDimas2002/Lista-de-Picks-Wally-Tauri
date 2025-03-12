@@ -1,7 +1,6 @@
-// src/App.jsx
 import React, { useState } from 'react';
-import Menu from './components/Menu';
-import Popup from './components/Popup';
+import Menu from './componentes/Menu';
+import PopUp from './componentes/PopUp';
 
 function App() {
   const [paginaAtual, setPaginaAtual] = useState('picks');
@@ -30,7 +29,7 @@ function App() {
         {paginaAtual === 'vidas' && <p>Vidas do Chat</p>}
         {paginaAtual === 'banco' && <p>Banco</p>}
       </div>
-      {mostrarPopup && <Popup tipo={tipoPopup} fecharPopup={fecharPopup} />}
+      {mostrarPopup && <PopUp tipo={tipoPopup} fecharPopup={fecharPopup} />}
     </div>
   );
 }

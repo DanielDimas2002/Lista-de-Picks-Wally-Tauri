@@ -36,3 +36,5 @@ const PopUp = ({ tipo, fecharPopup }) => {
         </div>
     )
 }
+
+export default PopUp;
