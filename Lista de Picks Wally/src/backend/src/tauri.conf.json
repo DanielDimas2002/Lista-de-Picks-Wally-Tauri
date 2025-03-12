@@ -1,0 +1,23 @@
+{
+    "build": {
+      "distDir": "../dist",
+      "devPath": "http://localhost:1420"
+    },
+    "tauri": {
+      "bundle": {
+        "identifier": "com.wally.lista",
+        "icon": ["icons/icon.png"]
+      },
+      "windows": [
+        {
+          "title": "Picks do Chat",
+          "width": 800,
+          "height": 600
+        }
+      ],
+      "security": {
+        "csp": "default-src 'self'; style-src 'self' 'unsafe-inline';"
+      }
+    }
+  }
+  

@@ -1,0 +1,33 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Diretórios de dependências
+node_modules
+
+# Diretórios de build
+dist
+dist-ssr
+target  # Tauri (Rust) build
+build   # React build
+
+# Arquivos de configuração de editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Cache de pacotes
+.yarn/cache
+.pnpm-store
+npm-debug.log*
