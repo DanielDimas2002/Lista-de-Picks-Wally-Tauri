@@ -1,40 +1,47 @@
-import React, { use, useState } from "react";
+// PopUp.jsx
+import React, { useState } from "react";
 
-const PopUp = ({ tipo, fecharPopup }) => {
-    const [nome, setNome] = useState("");
-    const [vidas, setVidas] = useState(0);
+function PopUp({ tipo }) {
+  const [valor, setValor] = useState("");  // Defina o estado para 'valor'
+  const [nome, setNome] = useState("");
 
-    // Função para adicionar dados, verificando o tipo
-    const adicionar = () => {
-        if (tipo === 'personagem' || tipo === 'jogador') {
-            // Lógica para adicionar personagem ou jogador
-            console.log(`Adicionando ${tipo}: ${nome} com ${valor} vidas`);
-        } else if (tipo === 'banco') {
-            // Lógica para adicionar ao banco (valor em reais)
-            console.log(`Adicionando pessoa no Banco: ${nome} com R$ ${valor}`);
-        }
-        fecharPopup(); // Fecha o pop-up após adicionar
-    };
+  const handleChange = (e) => {
+    setValor(e.target.value);  // Atualize o valor com o que foi digitado
+  };
 
-    return (
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(`Nome: ${nome}, Valor: ${valor}`);
+    // Lógica para salvar ou enviar os dados
+  };
+
+  return (
+    <div className="popup">
+      <form onSubmit={handleSubmit}>
         <div>
-            <h3>Adicionar {tipo === 'banco' ? 'Pessoa no Banco' : tipo === 'personagem' ? 'Personagem' : 'Jogador'}</h3>
-            <input
-                type="text"
-                placeholder="Nome"
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
-            />
-            <input
-                type="number"
-                placeholder={tipo === 'banco' ? "Valor (R$)" : "Vidas"}
-                value={valor}
-                onChange={(e) => setValor(Number(e.target.value))}
-            />
-            <button onClick={adicionar}>Adicionar</button>
-            <button onClick={fecharPopup}>Fechar</button>
+          <label htmlFor="nome">Nome:</label>
+          <input
+            type="text"
+            id="nome"
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
+          />
         </div>
-    )
+
+        <div>
+          <label htmlFor="valor">Valor:</label>
+          <input
+            type="number"
+            id="valor"
+            value={valor}
+            onChange={handleChange}
+          />
+        </div>
+
+        <button type="submit">Salvar</button>
+      </form>
+    </div>
+  );
 }
 
 export default PopUp;
