@@ -1,13 +1,33 @@
 import React from "react";
 
 const Menu = ({paginaAtual, onBotaoClick}) => {
+
+
+    const botoes = {
+        picks: [
+          { label: "Adicionar", action: "adicionar" },
+          { label: "Vidas do Chat", action: "vidas" },
+          { label: "Banco", action: "banco" },
+        ],
+        vidas: [
+          { label: "Adicionar", action: "adicionar" },
+          { label: "Picks do Chat", action: "picks" },
+          { label: "Banco", action: "banco" },
+        ],
+        banco: [
+          { label: "Adicionar", action: "adicionar" },
+          { label: "Picks do Chat", action: "picks" },
+          { label: "Vidas do Chat", action: "vidas" },
+        ],
+      };
+
     return(
         <div>
             <h1>PICKS DO CHAT</h1>
             <div>
-                <button onClick = {() => onBotaoClick('adicionar')}>Adicionar</button>
-                <button onClick = {() => onBotaoClick('vidas')}>Vidas do Chat</button>
-                <button onClick = {() => onBotaoClick('banco')}>Banco</button>
+                {botoes[paginaAtual]?.map((botao)=>(
+                    <button key={botao.action} onClick={() => onBotaoClick(botao.action)}>{botao.label}</button>
+                ))}
             </div>
         </div>
     );
