@@ -3,6 +3,7 @@ import Menu from "./componentes/Menu";
 import PopUp from "./componentes/PopUp";
 import TabelaPick from "./componentes/TabelaPick"; // Importando a TabelaPick
 import TabelaVida from "./componentes/TabelaVida"; // Importando a TabelaVida
+import "./resetCSS.css"
 import "./App.css";
 
 function App() {
