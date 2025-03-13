@@ -1,37 +1,45 @@
-import React, { useState } from 'react';
-import Menu from './componentes/Menu';
-import PopUp from './componentes/PopUp';
+import React, {useState} from "react";
+import Menu from "./componentes/Menu";
+import PopUp from "./componentes/PopUp";
+import "./App.css";
 
-function App() {
-  const [paginaAtual, setPaginaAtual] = useState('picks');
-  const [mostrarPopup, setMostrarPopup] = useState(false);
-  const [tipoPopup, setTipoPopup] = useState('');
+function App(){
+  const [paginaAtual, setPaginaAtual] = useState("picks");
+  const [mostrarPopUp, setMostrarPopUp] = useState(false);
+  const [tipoPopup, setTipoPopup] = useState("");
 
-  // Função de navegação que altera a tela exibida
-  const navegar = (tela) => {
-    setPaginaAtual(tela);
-    if (tela === 'adicionar') {
-      // Define o tipo de pop-up a ser exibido
-      setMostrarPopup(true);
-      setTipoPopup(paginaAtual === 'picks' ? 'personagem' : paginaAtual === 'vidas' ? 'jogador' : 'banco');
+  const navegar = (tela) =>{
+    if(tela === "adicionar"){
+      setMostrarPopUp(true);
+      let tipo = "";
+      if (paginaAtual === "picks") {
+        tipo = "personagem";
+      } else if (paginaAtual === "vidas"){
+        tipo = "jogador";
+      }else if(paginaAtual === "banco"){
+        tipo = "banco";
+      }
+      setTipoPopup(tipo); 
+    }else{
+      setPaginaAtual(tela);
     }
-  };
+  }
 
-  const fecharPopup = () => {
-    setMostrarPopup(false);
-  };
+  const fecharPopup = () =>{
+    setMostrarPopUp(false)
+  }
 
-  return (
+  return(
     <div>
-      <Menu paginaAtual={paginaAtual} onBotaoClick={navegar} />
-      <div>
-        {paginaAtual === 'picks' && <p>Tabela de Picks</p>}
-        {paginaAtual === 'vidas' && <p>Vidas do Chat</p>}
-        {paginaAtual === 'banco' && <p>Banco</p>}
-      </div>
-      {mostrarPopup && <PopUp tipo={tipoPopup} fecharPopup={fecharPopup} />}
+      <Menu paginaAtual = {paginaAtual} onBotaoClick = {navegar}/>
+        <div>
+          {paginaAtual === "picks" ? <p>Tabela de Picks</p> : null}
+          {paginaAtual === "vidas" ? <p>Vidas do Chat</p> : null}
+          {paginaAtual === "banco" ? <p>Banco</p> : null}
+        </div>
+      {mostrarPopUp === true ? <PopUp tipo = {tipoPopup} fecharPopup = {fecharPopup}/> : null}
     </div>
-  );
+  )
 }
 
 export default App;

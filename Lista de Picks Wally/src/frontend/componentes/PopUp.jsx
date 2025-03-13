@@ -1,5 +1,6 @@
 // PopUp.jsx
 import React, { useState } from "react";
+import "./PopUp.css";
 
 function PopUp({ tipo }) {
   const [valor, setValor] = useState("");  // Defina o estado para 'valor'

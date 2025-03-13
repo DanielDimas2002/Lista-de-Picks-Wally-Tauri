@@ -1,4 +1,6 @@
 import React from "react";
+import "./Menu.css";
+
 
 const Menu = ({paginaAtual, onBotaoClick}) => {
 
@@ -22,9 +24,9 @@ const Menu = ({paginaAtual, onBotaoClick}) => {
       };
 
     return(
-        <div>
+        <div className="menu">
             <h1>PICKS DO CHAT</h1>
-            <div>
+            <div className="menu-botoes">
                 {botoes[paginaAtual]?.map((botao)=>(
                     <button key={botao.action} onClick={() => onBotaoClick(botao.action)}>{botao.label}</button>
                 ))}
