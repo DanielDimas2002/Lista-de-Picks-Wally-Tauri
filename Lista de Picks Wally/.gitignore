@@ -9,7 +9,6 @@ lerna-debug.log*
 
 # Diretórios de dependências
 node_modules
-
 # Diretórios de build
 dist
 dist-ssr
@@ -26,8 +25,36 @@ build   # React build
 *.njsproj
 *.sln
 *.sw?
+*.sublime-workspace
+*.sublime-project
 
 # Cache de pacotes
 .yarn/cache
 .pnpm-store
 npm-debug.log*
+
+# Arquivos de ambiente
+.env
+.env.local
+.env.*.local
+*.env
+
+# Dependências de pacotes
+package-lock.json  # Comente ou remova esta linha se usar Yarn ou pnpm
+yarn.lock          # Comente ou remova esta linha se usar npm ou pnpm
+pnpm-lock.yaml     # Comente ou remova esta linha se usar npm ou Yarn
+
+# Testes
+coverage
+*.lcov
+
+# Arquivos de sistema
+Thumbs.db
+ehthumbs.db
+
+# Diretórios temporários
+tmp
+temp
+
+# Arquivos de backup
+*~

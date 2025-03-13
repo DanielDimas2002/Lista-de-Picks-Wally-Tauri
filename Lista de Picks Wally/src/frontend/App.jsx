@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Menu from "./componentes/Menu";
 import PopUp from "./componentes/PopUp";
-import TabelaPick from "./componentes/TabelaPick"; // Importando a Tabela
+import TabelaPick from "./componentes/TabelaPick"; // Importando a TabelaPick
+import TabelaVida from "./componentes/TabelaVida"; // Importando a TabelaVida
 import "./App.css";
 
 function App() {
@@ -13,6 +14,12 @@ function App() {
     { nome: "Campeão 1", vidas: 10 },
     { nome: "Campeão 2", vidas: 12 },
     { nome: "Campeão 3", vidas: 8 },
+  ];
+
+  const dadosVidas = [
+    { nome: "Jogador 1", vida: 5, vitorias: 10, derrotas: 2, totalVidas: 50 },
+    { nome: "Jogador 2", vida: 7, vitorias: 8, derrotas: 5, totalVidas: 60 },
+    { nome: "Jogador 3", vida: 4, vitorias: 15, derrotas: 1, totalVidas: 45 },
   ];
 
   const navegar = (tela) => {
@@ -43,7 +50,9 @@ function App() {
         {paginaAtual === "picks" ? (
           <TabelaPick dadosIniciais={dadosPicks} />
         ) : null}
-        {paginaAtual === "vidas" ? <p>Vidas do Chat</p> : null}
+        {paginaAtual === "vidas" ? (
+          <TabelaVida dadosIniciais={dadosVidas} />
+        ) : null}
         {paginaAtual === "banco" ? <p>Banco</p> : null}
       </div>
       {mostrarPopUp === true ? (
