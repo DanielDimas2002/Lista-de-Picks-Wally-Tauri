@@ -13,7 +13,6 @@ const TabelaVida = ({ dadosIniciais }) => {
     });
   };
 
-
   const reduzirVida = (index) => {
     setDados((prevDados) => {
       const novosDados = [...prevDados];
@@ -50,29 +49,43 @@ const TabelaVida = ({ dadosIniciais }) => {
     setDados((prevDados) => prevDados.filter((_, i) => i !== index));
   };
 
-  const calcularWinRate = (vitorias, derrotas) => {
-    const totalPartidas = vitorias + derrotas;
-    return totalPartidas > 0 ? ((vitorias / totalPartidas) * 100).toFixed(2) : 0;
+  // Função para calcular o Win Rate Ajustado com 2 casas decimais
+  const calcularWinRateAjustado = (vitorias, derrotas, fatorDeSuavizacao = 10) => {
+    const totalJogos = vitorias + derrotas;
+    const winRate = totalJogos > 0 ? (vitorias / totalJogos) * 100 : 0;
+
+    // Ajuste do win rate com o número de jogos e fator de suavização
+    const winRateAjustado = (winRate * totalJogos + fatorDeSuavizacao) / (totalJogos + fatorDeSuavizacao);
+    
+    // Retorna o win rate ajustado com 2 casas decimais
+    return winRateAjustado.toFixed(2);
   };
+
+  // Ordena os dados com base no win rate ajustado
+  const dadosOrdenados = [...dados].sort((a, b) => {
+    const winRateAjustadoA = calcularWinRateAjustado(a.vitorias, a.derrotas);
+    const winRateAjustadoB = calcularWinRateAjustado(b.vitorias, b.derrotas);
+    return winRateAjustadoB - winRateAjustadoA;  // Ordem decrescente
+  });
 
   return (
     <div className="tabela">
       <div className="cabecalho">
         <div className="coluna">Jogador</div>
         <div className="coluna">Vida</div>
-        <div className="coluna">Win Rate</div>
+        <div className="coluna">Win Rate Ajustado</div>
         <div className="coluna">Vitórias</div>
         <div className="coluna">Derrotas</div>
         <div className="coluna">Total de Vidas Usadas</div>
         <div className="coluna">Ações</div>
       </div>
-      {dados.map((jogador, index) => (
+      {dadosOrdenados.map((jogador, index) => (
         <LinhaVida
           key={index}
           index={index}
           nome={jogador.nome}
           vida={jogador.vida}
-          winRate={calcularWinRate(jogador.vitorias, jogador.derrotas)}
+          winRate={calcularWinRateAjustado(jogador.vitorias, jogador.derrotas)}
           vitorias={jogador.vitorias}
           derrotas={jogador.derrotas}
           totalVidas={jogador.totalVidas}
