@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import LinhaPick from "./LinhaPick";
+import "./Tabela.css";
 
 const TabelaPick = ({ dadosIniciais }) => {
   const [dados, setDados] = useState(dadosIniciais);
+
   const reduzirVida = (index) => {
     setDados((prevPicks) => {
       const novosPicks = [...prevPicks];
@@ -49,8 +51,8 @@ const TabelaPick = ({ dadosIniciais }) => {
   };
 
   return (
-    <div className="Tabela">
-      <div className="cabeçalho">
+    <div className="tabela">
+      <div className="cabecalho">
         <div className="coluna">Campião</div>
         <div className="coluna">Vidas</div>
         <div className="coluna">Ações</div>
