@@ -13,6 +13,15 @@ const TabelaVida = ({ dadosIniciais }) => {
     });
   };
 
+
+  const reduzirVida = (index) => {
+    setDados((prevDados) => {
+      const novosDados = [...prevDados];
+      novosDados[index].vida -= 1;
+      return novosDados;
+    });
+  };
+
   const vitoria = (index) => {
     setDados((prevDados) => {
       const novosDados = [...prevDados];

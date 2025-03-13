@@ -1,6 +1,6 @@
 import React from "react";
 
-const LinhaVida = ({ index, nome, vida, winRate, vitorias, derrotas, totalVidas, onAdicionarVida, onVitoria, onDerrota, onLimpar, onExcluir }) => {
+const LinhaVida = ({ index, nome, vida, winRate, vitorias, derrotas, totalVidas, onAdicionarVida, onReduzirVida, onVitoria, onDerrota, onLimpar, onExcluir }) => {
   return (
     <div className="linha">
       <div className="coluna">{nome}</div>
@@ -11,8 +11,9 @@ const LinhaVida = ({ index, nome, vida, winRate, vitorias, derrotas, totalVidas,
       <div className="coluna">{totalVidas}</div>
       <div className="coluna">
         <button onClick={() => onAdicionarVida(index)}>+Vida</button>
-        <button onClick={() => onVitoria(index)}>Vitória</button>
-        <button onClick={() => onDerrota(index)}>Derrota</button>
+        <button onClick={() => onReduzirVida(index)}>-Vida</button>
+        <button onClick={() => onVitoria(index)}>Vit</button>
+        <button onClick={() => onDerrota(index)}>Der</button>
         <button onClick={() => onLimpar(index)}>Limpar</button>
         <button onClick={() => onExcluir(index)}>Excluir</button>
       </div>
