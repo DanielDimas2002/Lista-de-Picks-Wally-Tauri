@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import LinhaPick from "./LinhaPick";
-import "./Tabela.css";
+import "./TabelaPick.css";
 
 const TabelaPick = ({ dadosIniciais }) => {
   const [dados, setDados] = useState(dadosIniciais);

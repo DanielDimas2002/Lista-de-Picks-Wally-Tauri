@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import LinhaVida from "./LinhaVida";
-import "./Tabela.css";
+import "./TabelaVida.css";
 
 const TabelaVida = ({ dadosIniciais }) => {
   const [dados, setDados] = useState(dadosIniciais);

@@ -1,0 +1,81 @@
+/* Estilo para o componente Tabela */
+.tabela {
+    width: 100%;
+    margin: 20px auto;
+    padding: 10px;
+    border-collapse: collapse;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  .cabecalho {
+    background-color: #3d3e5c; /* Cor de fundo para o cabeçalho */
+    color: #e6c5b2; /* Cor do texto */
+    text-align: left;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 10px 15px;
+    display: table; /* Garantir que o cabeçalho fique como uma tabela */
+    width: 100%;
+  }
+  
+  .coluna {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    width: 30%; /* Define a largura de cada coluna */
+    display: inline-block; /* Garante que as colunas fiquem na horizontal */
+  }
+  
+  .linha {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .linha:hover {
+    background-color: #f0f0f0;
+  }
+  
+  /* Estilo dos botões */
+  button {
+    background-color: #5f7d8e;
+    color: white;
+    padding: 8px 12px;
+    margin: 5px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #83cebd;
+  }
+  
+  button:focus {
+    outline: none;
+  }
+  
+  button:active {
+    background-color: #90607a;
+  }
+  
+  /* Responsividade para telas menores */
+  @media screen and (max-width: 768px) {
+    .tabela {
+      font-size: 14px;
+    }
+  
+    .coluna {
+      display: block;
+      width: 100%;
+      margin: 5px 0;
+    }
+  
+    .linha {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  
