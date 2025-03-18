@@ -3,7 +3,7 @@ import Menu from "./componentes/Menu/Menu";
 import PopUp from "./componentes/PopUp/PopUp";
 import TabelaPick from "./componentes/TabelaPick/TabelaPick"; 
 import TabelaVida from "./componentes/TabelaVida/TabelaVida"; 
-import TabelaBanco from "./componentes/Banco/TabelaBanco";
+import TabelaBanco from "./componentes/Banco/TabelaBanco"; 
 import "./resetCSS.css"
 import "./App.css";
 
@@ -22,6 +22,12 @@ function App() {
     { nome: "Jogador 1", vida: 5, vitorias: 10, derrotas: 2, totalVidas: 50 },
     { nome: "Jogador 2", vida: 7, vitorias: 8, derrotas: 5, totalVidas: 60 },
     { nome: "Jogador 3", vida: 4, vitorias: 15, derrotas: 1, totalVidas: 45 },
+  ];
+
+  const dadosBanco = [
+    { nome: "Wally", credito: 150.75 },
+    { nome: "Jogador X", credito: 80.00 },
+    { nome: "Jogador Y", credito: 45.30 },
   ];
 
   const navegar = (tela) => {
@@ -55,7 +61,9 @@ function App() {
         {paginaAtual === "vidas" ? (
           <TabelaVida dadosIniciais={dadosVidas} />
         ) : null}
-        {paginaAtual === "banco" ? <p>Banco</p> : null}
+        {paginaAtual === "banco" ? (
+          <TabelaBanco dadosIniciais={dadosBanco} /> 
+        ) : null}
       </div>
       {mostrarPopUp === true ? (
         <PopUp tipo={tipoPopup} fecharPopup={fecharPopup} />
