@@ -76,7 +76,7 @@ const TabelaVida = ({ dadosIniciais }) => {
         <div className="coluna">Win Rate Ajustado</div>
         <div className="coluna">Vitórias</div>
         <div className="coluna">Derrotas</div>
-        <div className="coluna">Total de Vidas Usadas</div>
+        <div className="coluna">Total de Vidas</div>
         <div className="coluna">Ações</div>
       </div>
       {dadosOrdenados.map((jogador, index) => (

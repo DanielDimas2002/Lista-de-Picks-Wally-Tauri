@@ -9,21 +9,27 @@
   }
   
   .cabecalho {
-    background-color: #3d3e5c; /* Cor de fundo para o cabeçalho */
-    color: #e6c5b2; /* Cor do texto */
+    background-color: #3d3e5c;
+    color: #e6c5b2;
     text-align: left;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: bold;
-    padding: 10px 15px;
-    display: table; /* Garantir que o cabeçalho fique como uma tabela */
+    padding: 10px 0;
+    display: flex; 
     width: 100%;
   }
   
   .coluna {
     padding: 10px;
     border-bottom: 1px solid #ddd;
-    width: 30%; /* Define a largura de cada coluna */
-    display: inline-block; /* Garante que as colunas fiquem na horizontal */
+    flex: 1; 
+    text-align: center; 
+  }
+  
+  .coluna:last-child {
+    display: flex;
+    justify-content: center;
+    gap: 5px; 
   }
   
   .linha {
@@ -37,7 +43,6 @@
     background-color: #f0f0f0;
   }
   
-  /* Estilo dos botões */
   button {
     background-color: #5f7d8e;
     color: white;
