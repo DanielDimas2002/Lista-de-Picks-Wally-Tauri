@@ -22,6 +22,11 @@ function PopUp({ tipo, fecharPopUp }) {
     fecharPopUp();
   };
 
+  const handleCancel = () => {
+    // Ao clicar no botão "Cancelar", o pop-up será fechado
+    fecharPopUp();  // Chame corretamente a função passada como prop
+  };
+
   return (
     <div className="popup">
       <div className="popup-conteudo">
@@ -89,7 +94,7 @@ function PopUp({ tipo, fecharPopUp }) {
           )}
 
           <div className="popup-botoes">
-            <button type="button" onClick={fecharPopUp}>
+            <button type="button" onClick={handleCancel}>
               Cancelar
             </button>
             <button type="submit">Salvar</button>

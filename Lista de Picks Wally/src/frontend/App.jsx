@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Menu from "./componentes/Menu/Menu";
 import PopUp from "./componentes/PopUp/PopUp";
-import TabelaPick from "./componentes/TabelaPick/TabelaPick"; 
-import TabelaVida from "./componentes/TabelaVida/TabelaVida"; 
-import TabelaBanco from "./componentes/Banco/TabelaBanco"; 
+import TabelaPick from "./componentes/TabelaPick/TabelaPick";
+import TabelaVida from "./componentes/TabelaVida/TabelaVida";
+import TabelaBanco from "./componentes/Banco/TabelaBanco";
 import "./resetCSS.css"
 import "./App.css";
 
@@ -48,6 +48,7 @@ function App() {
   };
 
   const fecharPopup = () => {
+    console.log("Fechando o PopUp");
     setMostrarPopUp(false);
   };
 
@@ -62,11 +63,11 @@ function App() {
           <TabelaVida dadosIniciais={dadosVidas} />
         ) : null}
         {paginaAtual === "banco" ? (
-          <TabelaBanco dadosIniciais={dadosBanco} /> 
+          <TabelaBanco dadosIniciais={dadosBanco} />
         ) : null}
       </div>
       {mostrarPopUp === true ? (
-        <PopUp tipo={tipoPopup} fecharPopup={fecharPopup} />
+        <PopUp tipo={tipoPopup} fecharPopUp={fecharPopup} />
       ) : null}
     </div>
   );
