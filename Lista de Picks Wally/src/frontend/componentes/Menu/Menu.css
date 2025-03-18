@@ -38,6 +38,20 @@
     color: #e6c5b2;
 }
 
+/* Estilo especial para o botão de Adicionar */
+.menu-botoes .botao-adicionar {
+    background-color: #e6c5b2; /* Dourado claro */
+    color: #3d3e5c; /* Texto escuro */
+    font-size: 1.1rem;
+    padding: 12px 24px;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.menu-botoes .botao-adicionar:hover {
+    background-color: #d4ab8c; /* Tom mais escuro no hover */
+}
+
 /* Responsividade */
 @media (max-width: 600px) {
     .menu-botoes {
