@@ -53,7 +53,7 @@ const TabelaPick = ({ dadosIniciais }) => {
   return (
     <div className="tabela">
       <div className="cabecalho">
-        <div className="coluna">Campião</div>
+        <div className="coluna">Campeão</div>
         <div className="coluna">Vidas</div>
         <div className="coluna">Ações</div>
       </div>
