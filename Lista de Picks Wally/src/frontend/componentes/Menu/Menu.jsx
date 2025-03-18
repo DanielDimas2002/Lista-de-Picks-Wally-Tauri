@@ -5,6 +5,12 @@ import "./Menu.css";
 const Menu = ({paginaAtual, onBotaoClick}) => {
 
 
+  const titulos = {
+    picks: "PICKS DO CHAT",
+    vidas: "VIDAS DO CHAT",
+    banco: "BANCO DO CHAT"
+  }
+
     const botoes = {
         picks: [
           { label: "Adicionar", action: "adicionar", destaque: true},
@@ -25,7 +31,7 @@ const Menu = ({paginaAtual, onBotaoClick}) => {
 
     return(
         <div className="menu">
-            <h1>PICKS DO CHAT</h1>
+            <h1>{titulos[paginaAtual]}</h1>
             <div className="menu-botoes">
                 {botoes[paginaAtual]?.map((botao)=>(
                     <button
