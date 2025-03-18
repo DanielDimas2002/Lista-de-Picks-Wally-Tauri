@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import LinhaBanco from "./LinhaBanco";
 import "./TabelaBanco.css";
 
-const TabelaBanco = ({ dadosInicais }) => {
-    const [dados, setDados] = useState(dadosInicais);
+const TabelaBanco = ({ dadosIniciais }) => {
+    const [dados, setDados] = useState(dadosIniciais);
 
     const atualizarCredito = (index, novoCredito) => {
         setDados((prevDados) => {
             const novosDados = [...prevDados];
             novosDados[index].credito = novoCredito;
-            return novosoDados;
+            return novosDados;
         })
     }
 

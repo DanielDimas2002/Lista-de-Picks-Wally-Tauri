@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
-const LinhaBanco = ({ index, nome, crédito, onAtualizarCredito, onExcluir }) => {
+const LinhaBanco = ({ index, nome, credito, onAtualizarCredito, onExcluir }) => {
 
     const [valor, setValor] = useState(credito);
     const [editando, setEditando] = useState(false);
 
 
     const handleBlur = () => {
-        if (valor === "" || isNaN(valor)) {
+        if (valor === "" || isNaN(parseFloat(valor))) {
             alert("A linha será excluída se permanecer vazia.");
             onExcluir(index);
         } else {
@@ -25,12 +25,12 @@ const LinhaBanco = ({ index, nome, crédito, onAtualizarCredito, onExcluir }) =>
                         type="number"
                         step="0.01"
                         value={valor}
-                        onChange={(e) => setValor(e.target.value)}
+                        onChange={(e) => setValor(parseFloat(e.target.value) || "")}
                         onBlur={handleBlur}
                         autoFocus
                     />
                 ) : (
-                    <span onClick={(setEditando(true))}>{credito.toFixed(2)}</span>
+                    <span onClick={() => setEditando(true)}>{credito.toFixed(2)}</span>
                 )}
             </div>
         </div>
