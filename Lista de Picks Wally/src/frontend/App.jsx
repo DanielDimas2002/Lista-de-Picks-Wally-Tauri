@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Menu from "./componentes/Menu";
-import PopUp from "./componentes/PopUp";
+import Menu from "./componentes/Menu/Menu";
+import PopUp from "./componentes/PopUp/PopUp";
 import TabelaPick from "./componentes/TabelaPick/TabelaPick"; // Importando a TabelaPick
 import TabelaVida from "./componentes/TabelaVida/TabelaVida"; // Importando a TabelaVida
 import "./resetCSS.css"
