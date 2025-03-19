@@ -19,7 +19,7 @@ const TabelaBanco = ({ dadosIniciais }) => {
 
     return (
         <div className="tabela">
-            <div>
+            <div className="cabecalho">
                 <div className="coluna">Nome</div>
                 <div className="coluna">Crédito</div>
             </div>
