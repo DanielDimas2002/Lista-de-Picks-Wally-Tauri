@@ -1,6 +1,44 @@
 import React from "react";
+import { invoke } from "@tauri-apps/api/tauri";
 
-const LinhaVida = ({ index, nome, vida, winRate, vitorias, derrotas, totalVidas, onAdicionarVida, onReduzirVida, onVitoria, onDerrota, onLimpar, onExcluir }) => {
+const LinhaVida = ({ index, nome, vida, winRate, vitorias, derrotas, totalVidas, onAtualizar, onExcluir }) => {
+
+  const handleAdicionarVida = async () => {
+    const novaVida = vida + 1;
+    await invoke("atualizar_vida_jogador", { index, novaVida }); // Salva no backend
+    onAtualizar(index, novaVida, "adicionar"); // Atualiza no estado local
+  };
+
+  const handleReduzirVida = async () => {
+    if (vida > 0) {
+      const novaVida = vida - 1;
+      await invoke("atualizar_vida_jogador", { index, novaVida }); // Salva no backend
+      onAtualizar(index, novaVida, "reduzir"); // Atualiza no estado local
+    }
+  };
+
+  const handleVitoria = async () => {
+    const novaVitoria = vitorias + 1;
+    await invoke("atualizar_vitoria_jogador", { index, novaVitoria }); // Salva no backend
+    onAtualizar(index, novaVitoria, "vitoria"); // Atualiza no estado local
+  };
+
+  const handleDerrota = async () => {
+    const novaDerrota = derrotas + 1;
+    await invoke("atualizar_derrota_jogador", { index, novaDerrota }); // Salva no backend
+    onAtualizar(index, novaDerrota, "derrota"); // Atualiza no estado local
+  };
+
+  const handleLimpar = async () => {
+    await invoke("zerar_vidas_jogador", { index }); // Zera no backend
+    onAtualizar(index, 0, "limpar"); // Atualiza no estado local
+  };
+
+  const handleExcluir = async () => {
+    await invoke("excluir_jogador", { index }); // Remove do backend
+    onExcluir(index); // Remove do estado local
+  };
+
   return (
     <div className="linha">
       <div className="coluna">{nome}</div>
@@ -10,27 +48,27 @@ const LinhaVida = ({ index, nome, vida, winRate, vitorias, derrotas, totalVidas,
       <div className="coluna">{derrotas}</div>
       <div className="coluna">{totalVidas}</div>
       <div className="coluna">
-        <button onClick={() => onAdicionarVida(index)} title="Adicionar uma vida">
+        <button onClick={handleAdicionarVida} title="Adicionar uma vida">
           <span className="material-symbols-outlined">add</span>
         </button>
 
-        <button onClick={() => onReduzirVida(index)} title="Reduzir uma vida">
+        <button onClick={handleReduzirVida} title="Reduzir uma vida">
           <span className="material-symbols-outlined">remove</span>
         </button>
 
-        <button onClick={() => onVitoria(index)} title="Registrar uma vitória">
+        <button onClick={handleVitoria} title="Registrar uma vitória">
           <span className="material-symbols-outlined">emoji_events</span>
         </button>
 
-        <button onClick={() => onDerrota(index)} title="Registrar uma derrota">
+        <button onClick={handleDerrota} title="Registrar uma derrota">
           <span className="material-symbols-outlined">thumb_down</span>
         </button>
 
-        <button onClick={() => onLimpar(index)} title="Zerar vidas do jogador">
+        <button onClick={handleLimpar} title="Zerar vidas do jogador">
           <span className="material-symbols-outlined">restart_alt</span>
         </button>
 
-        <button onClick={() => onExcluir(index)} title="Remover jogador da lista">
+        <button onClick={handleExcluir} title="Remover jogador da lista">
           <span className="material-symbols-outlined">delete</span>
         </button>
       </div>

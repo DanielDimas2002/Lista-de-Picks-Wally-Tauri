@@ -4,6 +4,9 @@ use tauri::Manager;
 use std::sync::Mutex;
 use std::collections::HashMap;
 
+use std::fs;
+use serde::{Serialize, Deserialize};
+
 use crate::data::{carregar_dados, salvar_dados, inicializar_arquivos, Pick, VidaChat, Banco};
 use std::io;
 
@@ -53,4 +56,33 @@ pub fn get_banco() -> Result<Vec<Banco>, String> {
 #[tauri::command]
 pub fn set_banco(banco: Vec<Banco>) -> Result<(), String> {
     salvar_dados("banco.json", &banco).map_err(|e| e.to_string())
+}
+
+#[derive(Serialize, Deserialize)]
+struct Item {
+    nome: String,
+    vidas: Option<i32>,
+    valor: Option<f64>,
+}
+
+#[tauri::command]
+fn adicionar_item(tipo: String, item: Item) -> Result<(), String> {
+    let caminho = match tipo.as_str() {
+        "personagem" => "backend/picks.json",
+        "jogador" => "backend/vidas.json",
+        "banco" => "backend/banco.json",
+        _ => return Err("Tipo inválido".to_string()),
+    };
+
+    let mut dados: Vec<Item> = match fs::read_to_string(&caminho) {
+        Ok(conteudo) => serde_json::from_str(&conteudo).unwrap_or_else(|_| vec![]),
+        Err(_) => vec![],
+    };
+
+    dados.push(item);
+
+    fs::write(&caminho, serde_json::to_string_pretty(&dados).map_err(|e| e.to_string())?)
+        .map_err(|e| e.to_string())?;
+
+    Ok(())
 }

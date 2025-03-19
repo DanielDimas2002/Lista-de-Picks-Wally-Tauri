@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { invoke } from "@tauri-apps/api/tauri";
 import "./PopUp.css";
 
 function PopUp({ tipo, fecharPopUp }) {
@@ -14,12 +15,22 @@ function PopUp({ tipo, fecharPopUp }) {
     setVidas(e.target.value);  // Atualize as vidas com o que foi digitado
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(`Nome: ${nome}, Vidas: ${vidas}, Valor: ${valor}`);
-
-    // Lógica para salvar ou enviar os dados (pode ser modificada conforme necessidade)
-    fecharPopUp();
+  
+    const novoItem = {
+      nome,
+      vidas: tipo === "banco" ? null : parseInt(vidas) || 0,
+      valor: tipo === "banco" ? parseFloat(valor) || 0 : null,
+    };
+  
+    try {
+      // Chamando o backend do Tauri
+      await invoke("adicionar_item", { tipo, item: novoItem });
+      fecharPopUp(); // Fecha o popup após salvar
+    } catch (erro) {
+      console.error("Erro ao salvar os dados:", erro);
+    }
   };
 
   const handleCancel = () => {
