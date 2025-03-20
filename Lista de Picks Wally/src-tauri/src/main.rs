@@ -1,15 +1,12 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-fn main() {
-    lista_de_picks_wally_lib::run()
-}
-
 use crate::commands::{get_picks, set_picks, get_vidas_chat, set_vidas_chat, get_banco, set_banco};
 use crate::data::inicializar_arquivos;
 
 fn main() {
-    inicializar_arquivos(); // Garante que os arquivos existem antes de rodar
+    // Garante que os arquivos existem antes de rodar
+    inicializar_arquivos();
 
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
