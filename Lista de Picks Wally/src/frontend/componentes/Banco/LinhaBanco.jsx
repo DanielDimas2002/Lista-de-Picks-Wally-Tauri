@@ -1,41 +1,37 @@
 import React, { useState } from "react";
-import { invoke } from "@tauri-apps/api/tauri";
 
 const LinhaBanco = ({ index, nome, credito, onAtualizarCredito, onExcluir }) => {
-    const [valor, setValor] = useState(credito);
-    const [editando, setEditando] = useState(false);
+  const [novoCredito, setNovoCredito] = useState(credito);
 
-    const handleBlur = async () => {
-        if (valor === "" || isNaN(parseFloat(valor))) {
-            alert("A linha será excluída se permanecer vazia.");
-            onExcluir(index);
-        } else {
-            const novoCredito = parseFloat(valor);
-            await invoke("atualizar_credito_banco", { index, novoCredito }); // Salva no backend
-            onAtualizarCredito(index, novoCredito); // Atualiza no estado local
-            setEditando(false);
-        }
-    };
+  const handleCreditoChange = (e) => {
+    const valorCredito = parseFloat(e.target.value);
+    if (!isNaN(valorCredito)) {
+      setNovoCredito(valorCredito);
+    }
+  };
 
-    return (
-        <div className="linha">
-            <div className="coluna">{nome}</div>
-            <div className="coluna">
-                {editando ? (
-                    <input
-                        type="number"
-                        step="0.01"
-                        value={valor}
-                        onChange={(e) => setValor(parseFloat(e.target.value) || "")}
-                        onBlur={handleBlur}
-                        autoFocus
-                    />
-                ) : (
-                    <span onClick={() => setEditando(true)}>{credito.toFixed(2)}</span>
-                )}
-            </div>
-        </div>
-    );
+  const handleCreditoBlur = () => {
+    onAtualizarCredito(index, novoCredito);
+  };
+
+  return (
+    <div className="linha">
+      <div className="coluna">{nome}</div>
+      <div className="coluna">
+        <input
+          type="number"
+          value={novoCredito}
+          onChange={handleCreditoChange}
+          onBlur={handleCreditoBlur}
+        />
+      </div>
+      <div className="coluna">
+        <button onClick={() => onExcluir(index)} title="Excluir linha">
+          Excluir
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default LinhaBanco;
