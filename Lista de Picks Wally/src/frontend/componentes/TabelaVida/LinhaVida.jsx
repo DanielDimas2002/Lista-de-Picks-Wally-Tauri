@@ -5,38 +5,38 @@ const LinhaVida = ({ index, nome, vida, winRate, vitorias, derrotas, totalVidas,
 
   const handleAdicionarVida = async () => {
     const novaVida = vida + 1;
-    await invoke("atualizar_vida_jogador", { index, novaVida }); // Salva no backend
-    onAtualizar(index, novaVida, "adicionar"); // Atualiza no estado local
+    await invoke("atualizar_vida_jogador", { index, novaVida });
+    onAtualizar(index, { vida: novaVida });
   };
 
   const handleReduzirVida = async () => {
     if (vida > 0) {
       const novaVida = vida - 1;
-      await invoke("atualizar_vida_jogador", { index, novaVida }); // Salva no backend
-      onAtualizar(index, novaVida, "reduzir"); // Atualiza no estado local
+      await invoke("atualizar_vida_jogador", { index, novaVida });
+      onAtualizar(index, { vida: novaVida });
     }
   };
 
   const handleVitoria = async () => {
     const novaVitoria = vitorias + 1;
-    await invoke("atualizar_vitoria_jogador", { index, novaVitoria }); // Salva no backend
-    onAtualizar(index, novaVitoria, "vitoria"); // Atualiza no estado local
+    await invoke("atualizar_vitoria_jogador", { index, novaVitoria });
+    onAtualizar(index, { vitorias: novaVitoria });
   };
 
   const handleDerrota = async () => {
     const novaDerrota = derrotas + 1;
-    await invoke("atualizar_derrota_jogador", { index, novaDerrota }); // Salva no backend
-    onAtualizar(index, novaDerrota, "derrota"); // Atualiza no estado local
+    await invoke("atualizar_derrota_jogador", { index, novaDerrota });
+    onAtualizar(index, { derrotas: novaDerrota });
   };
 
   const handleLimpar = async () => {
-    await invoke("zerar_vidas_jogador", { index }); // Zera no backend
-    onAtualizar(index, 0, "limpar"); // Atualiza no estado local
+    await invoke("zerar_vidas_jogador", { index });
+    onAtualizar(index, { vida: 0 });
   };
 
   const handleExcluir = async () => {
-    await invoke("excluir_jogador", { index }); // Remove do backend
-    onExcluir(index); // Remove do estado local
+    await invoke("excluir_jogador", { index });
+    onExcluir(index);
   };
 
   return (

@@ -5,59 +5,32 @@ import "./TabelaVida.css";
 const TabelaVida = ({ dadosIniciais }) => {
   const [dados, setDados] = useState(dadosIniciais);
 
-  const adicionarVida = (index) => {
-    setDados((prevDados) => {
-      const novosDados = [...prevDados];
-      novosDados[index].vida += 1;
-      return novosDados;
-    });
+  const atualizarJogador = (id, novoValor, tipo) => {
+    setDados((prevDados) =>
+      prevDados.map((jogador) =>
+        jogador.id === id
+          ? {
+              ...jogador,
+              vida: tipo === "adicionar" ? jogador.vida + 1 : 
+                    tipo === "reduzir" ? jogador.vida - 1 : 
+                    tipo === "limpar" ? 0 : jogador.vida,
+              vitorias: tipo === "vitoria" ? jogador.vitorias + 1 : jogador.vitorias,
+              derrotas: tipo === "derrota" ? jogador.derrotas + 1 : jogador.derrotas,
+            }
+          : jogador
+      )
+    );
   };
 
-  const reduzirVida = (index) => {
-    setDados((prevDados) => {
-      const novosDados = [...prevDados];
-      novosDados[index].vida -= 1;
-      return novosDados;
-    });
-  };
-
-  const vitoria = (index) => {
-    setDados((prevDados) => {
-      const novosDados = [...prevDados];
-      novosDados[index].vitorias += 1;
-      return novosDados;
-    });
-  };
-
-  const derrota = (index) => {
-    setDados((prevDados) => {
-      const novosDados = [...prevDados];
-      novosDados[index].derrotas += 1;
-      return novosDados;
-    });
-  };
-
-  const limpar = (index) => {
-    setDados((prevDados) => {
-      const novosDados = [...prevDados];
-      novosDados[index].vida = 0;
-      return novosDados;
-    });
-  };
-
-  const excluir = (index) => {
-    setDados((prevDados) => prevDados.filter((_, i) => i !== index));
+  const excluirJogador = (id) => {
+    setDados((prevDados) => prevDados.filter((jogador) => jogador.id !== id));
   };
 
   // Função para calcular o Win Rate Ajustado com 2 casas decimais
   const calcularWinRateAjustado = (vitorias, derrotas, fatorDeSuavizacao = 10) => {
     const totalJogos = vitorias + derrotas;
     const winRate = totalJogos > 0 ? (vitorias / totalJogos) * 100 : 0;
-
-    // Ajuste do win rate com o número de jogos e fator de suavização
     const winRateAjustado = (winRate * totalJogos + fatorDeSuavizacao) / (totalJogos + fatorDeSuavizacao);
-    
-    // Retorna o win rate ajustado com 2 casas decimais
     return winRateAjustado.toFixed(2);
   };
 
@@ -79,21 +52,18 @@ const TabelaVida = ({ dadosIniciais }) => {
         <div className="coluna">Total de Vidas</div>
         <div className="coluna">Ações</div>
       </div>
-      {dadosOrdenados.map((jogador, index) => (
+      {dadosOrdenados.map((jogador) => (
         <LinhaVida
-          key={index}
-          index={index}
+          key={jogador.id}
+          id={jogador.id}
           nome={jogador.nome}
           vida={jogador.vida}
           winRate={calcularWinRateAjustado(jogador.vitorias, jogador.derrotas)}
           vitorias={jogador.vitorias}
           derrotas={jogador.derrotas}
           totalVidas={jogador.totalVidas}
-          onAdicionarVida={adicionarVida}
-          onVitoria={vitoria}
-          onDerrota={derrota}
-          onLimpar={limpar}
-          onExcluir={excluir}
+          onAtualizar={atualizarJogador}
+          onExcluir={excluirJogador}
         />
       ))}
     </div>
