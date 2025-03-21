@@ -1,0 +1,6 @@
+{
+    "picks": "./src/backend/picks.json",
+    "vidas": "./src/backend/vidas.json",
+    "banco": "./src/backend/banco.json"
+  }
+  
