@@ -4,8 +4,60 @@
       "id": "a60f",
       "nome": "DANIEL DIMAS DE SOUZA",
       "vidas": 5
+    },
+    {
+      "id": "1df3",
+      "nome": "DANIEL DIMAS DE SOUZA",
+      "vidas": 8
+    },
+    {
+      "id": "f9ca",
+      "nome": "DANIEL DIMAS DE SOUZA",
+      "vidas": 8
     }
   ],
-  "vidas": [],
-  "banco": []
+  "vidas": [
+    {
+      "id": "daca",
+      "nome": "DANIEL DIMAS DE SOUZA",
+      "vidas": 8
+    },
+    {
+      "id": "5640",
+      "nome": "Elementos de vedação",
+      "vidas": 9
+    }
+  ],
+  "banco": [
+    {
+      "id": "d349",
+      "nome": "Bom dia",
+      "valor": 3
+    },
+    {
+      "id": "a7f9",
+      "nome": "Bom dia",
+      "valor": 3
+    },
+    {
+      "id": "8d92",
+      "nome": "DANIEL DIMAS DE SOUZA",
+      "valor": 22
+    },
+    {
+      "id": "082b",
+      "nome": "Elementos de vedação",
+      "valor": 45
+    },
+    {
+      "id": "f081",
+      "nome": "Elementos de vedação",
+      "valor": 45
+    },
+    {
+      "id": "8a63",
+      "nome": "Elementos de vedação",
+      "valor": 6
+    }
+  ]
 }
