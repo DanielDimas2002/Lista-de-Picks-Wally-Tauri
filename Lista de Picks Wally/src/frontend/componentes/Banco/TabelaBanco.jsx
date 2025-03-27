@@ -2,83 +2,57 @@ import React, { useState, useEffect } from "react";
 import LinhaBanco from "./LinhaBanco";
 import "./TabelaBanco.css";
 
-const TabelaBanco = ({ novoItem }) => {
-    const [dadosBanco, setDadosBanco] = useState([]);
+const TabelaBanco = ({ dadosIniciais }) => {
+  const [dados, setDados] = useState(dadosIniciais);
 
-    useEffect(() => {
-        carregarDados();
-    }, []);
+  useEffect(() => {
+    setDados(dadosIniciais);
+  }, [dadosIniciais]);
 
-    useEffect(() => {
-        if (novoItem) {
-            setDadosBanco((prevDados) => [...prevDados, novoItem]);
-        }
-    }, [novoItem]);
+  // Atualiza o valor do crédito (valor) do banco
+  const atualizarCredito = (index, novoCredito) => {
+    const novosDados = [...dados];
+    novosDados[index] = { ...novosDados[index], valor: novoCredito }; // Altere de 'credito' para 'valor'
+    setDados(novosDados);
 
-    const carregarDados = async () => {
-        try {
-            const response = await fetch("http://localhost:5000/banco");
-            if (!response.ok) {
-                throw new Error("Erro ao buscar dados do banco.");
-            }
-            const data = await response.json();
-            setDadosBanco(data);
-        } catch (error) {
-            console.error("Erro ao carregar os dados do banco:", error);
-        }
-    };
+    // Enviar atualização para o backend
+    fetch("http://localhost:5000/banco", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(novosDados), // Envia os dados atualizados
+    }).catch((error) => console.error("Erro ao atualizar crédito:", error));
+  };
 
-    const atualizarCredito = async (index, novoCredito) => {
-        try {
-            const atualizado = [...dadosBanco];
-            atualizado[index].valor = novoCredito;
-            setDadosBanco(atualizado);
+  // Exclui uma linha do banco
+  const excluirLinha = (index) => {
+    const novosDados = dados.filter((_, i) => i !== index);
+    setDados(novosDados);
 
-            // Atualizar no backend
-            await fetch("http://localhost:5000/banco", {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(atualizado[index]),
-            });
-        } catch (error) {
-            console.error("Erro ao atualizar crédito:", error);
-        }
-    };
+    fetch("http://localhost:5000/banco", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ index }), // Envia o índice da linha a ser excluída
+    }).catch((error) => console.error("Erro ao excluir linha:", error));
+  };
 
-    const excluirLinha = async (index) => {
-        try {
-            const itemExcluido = dadosBanco[index];
-
-            // Atualizar o estado local
-            setDadosBanco((prevDados) => prevDados.filter((_, i) => i !== index));
-
-            // Remover do backend
-            await fetch(`http://localhost:5000/banco/${itemExcluido.id}`, {
-                method: "DELETE",
-            });
-        } catch (error) {
-            console.error("Erro ao excluir item:", error);
-        }
-    };
-
-    return (
-        <div className="tabela">
-            <div className="linha cabecalho">
-                <div className="coluna">Nome</div>
-                <div className="coluna">Crédito</div>
-            </div>
-            {dadosBanco.map((item, index) => (
-                <LinhaBanco
-                    key={item.id}
-                    index={index}
-                    nome={item.nome}
-                    credito={item.valor}
-                    onAtualizarCredito={atualizarCredito}
-                    onExcluir={excluirLinha}
-                />
-            ))}
-        </div>
-    );
+  return (
+    <div className="tabela">
+      <div className="cabecalho">
+        <div className="coluna">Nome</div>
+        <div className="coluna">Crédito (R$)</div>
+      </div>
+      {dados.map((jogador, index) => (
+        <LinhaBanco
+          key={jogador.id} 
+          index={index}
+          nome={jogador.nome}
+          credito={jogador.valor} 
+          onAtualizarCredito={atualizarCredito}
+          onExcluir={excluirLinha}
+        />
+      ))}
+    </div>
+  );
 };
 
 export default TabelaBanco;

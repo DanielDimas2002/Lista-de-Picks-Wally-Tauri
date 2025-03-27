@@ -13,6 +13,7 @@ function App() {
   const [tipoPopup, setTipoPopup] = useState("");
   const [dadosPicks, setDadosPicks] = useState([]);
   const [dadosVidas, setDadosVidas] = useState([]);
+  const [dadosBanco, setDadosBanco] = useState([]);
 
   // Buscar os picks do backend
   useEffect(() => {
@@ -50,11 +51,22 @@ function App() {
     fetchVidas();
   }, []);
 
-  const dadosBanco = [
-    { nome: "Wally", credito: 150.75 },
-    { nome: "Jogador X", credito: 80.0 },
-    { nome: "Jogador Y", credito: 45.3 },
-  ];
+  useEffect(() => {
+    const fetchBanco = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/banco");
+        if (!response.ok) {
+          throw new Error("Erro ao buscar os dados do banco");
+        }
+        const data = await response.json();
+        setDadosBanco(data);
+      } catch (error) {
+        console.error("Erro ao buscar os dados do banco:", error);
+      }
+    };
+
+    fetchBanco();
+  }, []);
 
   const navegar = (tela) => {
     if (tela === "adicionar") {
