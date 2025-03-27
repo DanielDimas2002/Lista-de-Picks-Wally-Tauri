@@ -13,7 +13,6 @@ const TabelaPick = ({ dadosIniciais }) => {
           throw new Error("Erro ao carregar os dados");
         }
         const data = await resposta.json();
-        //console.log("Dados recebimentos", data);
         setDados(data);
       } catch (erro) {
         console.error("Erro ao buscar os dados:", erro);

@@ -12,17 +12,17 @@ function App() {
   const [mostrarPopUp, setMostrarPopUp] = useState(false);
   const [tipoPopup, setTipoPopup] = useState("");
   const [dadosPicks, setDadosPicks] = useState([]);
+  const [dadosVidas, setDadosVidas] = useState([]);
 
-  // Função para buscar os picks do backend
+  // Buscar os picks do backend
   useEffect(() => {
     const fetchPicks = async () => {
       try {
-        const response = await fetch("http://localhost:5000/picks"); // Ajuste a URL conforme necessário
+        const response = await fetch("http://localhost:5000/picks");
         if (!response.ok) {
           throw new Error("Erro ao buscar os dados");
         }
         const data = await response.json();
-        //console.log("Dados recebidos:", data);
         setDadosPicks(data);
       } catch (error) {
         console.error("Erro ao buscar os picks:", error);
@@ -30,13 +30,25 @@ function App() {
     };
 
     fetchPicks();
-  }, []); // Executa apenas na montagem do componente
+  }, []);
 
-  const dadosVidas = [
-    { nome: "Jogador 1", vida: 5, vitorias: 10, derrotas: 2, totalVidas: 50 },
-    { nome: "Jogador 2", vida: 7, vitorias: 8, derrotas: 5, totalVidas: 60 },
-    { nome: "Jogador 3", vida: 4, vitorias: 15, derrotas: 1, totalVidas: 45 },
-  ];
+  // Buscar os dados de vidas do backend
+  useEffect(() => {
+    const fetchVidas = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/vidas");
+        if (!response.ok) {
+          throw new Error("Erro ao buscar os dados de vidas");
+        }
+        const data = await response.json();
+        setDadosVidas(data);
+      } catch (error) {
+        console.error("Erro ao buscar os dados de vidas:", error);
+      }
+    };
+
+    fetchVidas();
+  }, []);
 
   const dadosBanco = [
     { nome: "Wally", credito: 150.75 },
