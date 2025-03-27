@@ -1,6 +1,10 @@
 import React from "react";
 
 const LinhaVida = ({ index, nome, vida, winRate, vitorias, derrotas, totalVidas, onAdicionarVida, onReduzirVida, onVitoria, onDerrota, onLimpar, onExcluir }) => {
+  
+  console.log("Renderizando LinhaVida:", { index, nome, vida, winRate, vitorias, derrotas, totalVidas });
+
+
   return (
     <div className="linha">
       <div className="coluna">{nome}</div>

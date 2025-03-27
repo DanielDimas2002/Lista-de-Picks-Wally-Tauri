@@ -26,7 +26,7 @@ const TabelaVida = () => {
       })
       .catch((erro) => console.error("Erro ao buscar dados:", erro));
   }, []);
-  
+
 
   const atualizarEstado = (index, modificador) => {
     setDados((prevDados) => {
@@ -46,8 +46,6 @@ const TabelaVida = () => {
 
   const excluir = (index) => {
     setDados((prevDados) => prevDados.filter((_, i) => i !== index));
-
-    // Aqui você pode enviar uma requisição ao backend para excluir o jogador
   };
 
   const calcularWinRateAjustado = (vitorias, derrotas, fatorDeSuavizacao = 10) => {
@@ -61,6 +59,18 @@ const TabelaVida = () => {
     return calcularWinRateAjustado(b.vitorias, b.derrotas) - calcularWinRateAjustado(a.vitorias, a.derrotas);
   });
 
+  const jogadoresFormatados = dados.map((jogador) => ({
+    ...jogador,
+    vitorias: jogador.vitorias ?? 0, // Se vitorias não existe, assume 0
+    derrotas: jogador.derrotas ?? 0, // Se derrotas não existe, assume 0
+    totalVidas: jogador.vidas, // Total de vidas
+    winRate:
+      jogador.vitorias + jogador.derrotas > 0
+        ? ((jogador.vitorias / (jogador.vitorias + jogador.derrotas)) * 100).toFixed(1)
+        : "0.0", // Se não tem partidas, winRate é 0%
+  }));
+
+
   return (
     <div className="tabela">
       <div className="cabecalho">
@@ -72,17 +82,17 @@ const TabelaVida = () => {
         <div className="coluna">Total de Vidas</div>
         <div className="coluna">Ações</div>
       </div>
-      {dadosOrdenados.map((jogador, index) => (
+      {jogadoresFormatados.map((jogador, index) => (
         <LinhaVida
-          key={jogador.id}
+          key={index}
           index={index}
           nome={jogador.nome}
-          vida={jogador.vida}
-          winRate={calcularWinRateAjustado(jogador.vitorias, jogador.derrotas)}
+          vida={jogador.totalVidas}
           vitorias={jogador.vitorias}
           derrotas={jogador.derrotas}
-          totalVidas={jogador.totalVidas}
+          winRate={jogador.winRate}
           onAdicionarVida={adicionarVida}
+          onReduzirVida={reduzirVida}
           onVitoria={vitoria}
           onDerrota={derrota}
           onLimpar={limpar}
