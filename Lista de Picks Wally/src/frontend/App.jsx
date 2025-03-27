@@ -1,22 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Menu from "./componentes/Menu/Menu";
 import PopUp from "./componentes/PopUp/PopUp";
 import TabelaPick from "./componentes/TabelaPick/TabelaPick";
 import TabelaVida from "./componentes/TabelaVida/TabelaVida";
 import TabelaBanco from "./componentes/Banco/TabelaBanco";
-import "./resetCSS.css"
+import "./resetCSS.css";
 import "./App.css";
 
 function App() {
   const [paginaAtual, setPaginaAtual] = useState("picks");
   const [mostrarPopUp, setMostrarPopUp] = useState(false);
   const [tipoPopup, setTipoPopup] = useState("");
+  const [dadosPicks, setDadosPicks] = useState([]);
 
-  const dadosPicks = [
-    { nome: "Campeão 1", vidas: 10 },
-    { nome: "Campeão 2", vidas: 12 },
-    { nome: "Campeão 3", vidas: 8 },
-  ];
+  // Função para buscar os picks do backend
+  useEffect(() => {
+    const fetchPicks = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/picks"); // Ajuste a URL conforme necessário
+        if (!response.ok) {
+          throw new Error("Erro ao buscar os dados");
+        }
+        const data = await response.json();
+        //console.log("Dados recebidos:", data);
+        setDadosPicks(data);
+      } catch (error) {
+        console.error("Erro ao buscar os picks:", error);
+      }
+    };
+
+    fetchPicks();
+  }, []); // Executa apenas na montagem do componente
 
   const dadosVidas = [
     { nome: "Jogador 1", vida: 5, vitorias: 10, derrotas: 2, totalVidas: 50 },
@@ -26,8 +40,8 @@ function App() {
 
   const dadosBanco = [
     { nome: "Wally", credito: 150.75 },
-    { nome: "Jogador X", credito: 80.00 },
-    { nome: "Jogador Y", credito: 45.30 },
+    { nome: "Jogador X", credito: 80.0 },
+    { nome: "Jogador Y", credito: 45.3 },
   ];
 
   const navegar = (tela) => {
@@ -56,19 +70,11 @@ function App() {
     <div>
       <Menu paginaAtual={paginaAtual} onBotaoClick={navegar} />
       <div>
-        {paginaAtual === "picks" ? (
-          <TabelaPick dadosIniciais={dadosPicks} />
-        ) : null}
-        {paginaAtual === "vidas" ? (
-          <TabelaVida dadosIniciais={dadosVidas} />
-        ) : null}
-        {paginaAtual === "banco" ? (
-          <TabelaBanco dadosIniciais={dadosBanco} />
-        ) : null}
+        {paginaAtual === "picks" && <TabelaPick dadosIniciais={dadosPicks} />}
+        {paginaAtual === "vidas" && <TabelaVida dadosIniciais={dadosVidas} />}
+        {paginaAtual === "banco" && <TabelaBanco dadosIniciais={dadosBanco} />}
       </div>
-      {mostrarPopUp === true ? (
-        <PopUp tipo={tipoPopup} fecharPopUp={fecharPopup} />
-      ) : null}
+      {mostrarPopUp && <PopUp tipo={tipoPopup} fecharPopUp={fecharPopup} />}
     </div>
   );
 }
