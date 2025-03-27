@@ -1,9 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LinhaPick from "./LinhaPick";
 import "./TabelaPick.css";
 
 const TabelaPick = ({ dadosIniciais }) => {
   const [dados, setDados] = useState(dadosIniciais);
+
+  useEffect(() => {
+    const carregarDados = async () => {
+      try {
+        const resposta = await fetch("http://localhost:5000/picks");
+        if (!resposta.ok) {
+          throw new Error("Erro ao carregar os dados");
+        }
+        const data = await resposta.json();
+        console.log("Dados recebimentos", data);
+        setDados(data);
+      } catch (erro) {
+        console.error("Erro ao buscar os dados:", erro);
+      }
+    }
+
+    carregarDados()
+  }, [])
 
   const reduzirVida = (index) => {
     setDados((prevPicks) => {
@@ -45,7 +63,7 @@ const TabelaPick = ({ dadosIniciais }) => {
     setDados((prevPicks) => {
       const novosPicks = [...prevPicks];
       const [moverPick] = novosPicks.splice(index, 1);
-      novosPicks.unshift(moverPick); 
+      novosPicks.unshift(moverPick);
       return novosPicks;
     });
   };
