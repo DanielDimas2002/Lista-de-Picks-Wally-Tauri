@@ -1,37 +1,40 @@
-import React from "react";
-import LinhaBanco from "./LinhaBanco";
+import React, { useState } from "react";
 
-const TabelaBanco = ({ dadosIniciais }) => {
+const LinhaBanco = ({ index, nome, credito, onAtualizarCredito, onExcluir }) => {
 
-    const [dadosBanco, setDadosBanco] = useState(dadosIniciais);
+    const [valor, setValor] = useState(credito);
+    const [editando, setEditando] = useState(false);
 
-    // Atualiza o valor do crédito
-    const atualizarCredito = (index, novoValor) => {
-        const novosDados = [...dadosBanco];
-        novosDados[index].valor = novoValor; // Alteração aqui para usar 'valor' do backend
-        setDadosBanco(novosDados);
-    };
 
-    // Exclui uma linha
-    const excluirLinha = (index) => {
-        const novosDados = dadosBanco.filter((_, i) => i !== index);
-        setDadosBanco(novosDados);
-    };
+    const handleBlur = () => {
+        if (valor === "" || isNaN(parseFloat(valor))) {
+            alert("A linha será excluída se permanecer vazia.");
+            onExcluir(index);
+        } else {
+            onAtualizarCredito(index, parseFloat(valor));
+            setEditando(false);
+        }
+    }
 
     return (
-        <div>
-            {dadosBanco.map((dado, index) => (
-                <LinhaBanco
-                    key={dado.id}
-                    index={index}
-                    nome={dado.nome}
-                    credito={dado.valor} 
-                    onAtualizarCredito={atualizarCredito}
-                    onExcluir={excluirLinha}
-                />
-            ))}
+        <div className="linha">
+            <div className="coluna">{nome}</div>
+            <div className="coluna">{
+                editando ? (
+                    <input
+                        type="number"
+                        step="0.01"
+                        value={valor}
+                        onChange={(e) => setValor(parseFloat(e.target.value) || "")}
+                        onBlur={handleBlur}
+                        autoFocus
+                    />
+                ) : (
+                    <span onClick={() => setEditando(true)}>{credito.toFixed(2)}</span>
+                )}
+            </div>
         </div>
-    );
-};
+    )
 
-export default TabelaBanco;
+}
+export default LinhaBanco
