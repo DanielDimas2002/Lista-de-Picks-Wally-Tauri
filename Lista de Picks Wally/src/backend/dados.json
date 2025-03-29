@@ -39,6 +39,31 @@
       "id": "cd9d",
       "nome": "Termografia - Fundamentos - Módulo 1",
       "vidas": 8
+    },
+    {
+      "id": "b7f2",
+      "nome": "Braum",
+      "vidas": 4
+    },
+    {
+      "id": "373c",
+      "nome": "Braum",
+      "vidas": 4
+    },
+    {
+      "id": "f237",
+      "nome": "Braum",
+      "vidas": 4
+    },
+    {
+      "id": "cc20",
+      "nome": "Braum",
+      "vidas": 6
+    },
+    {
+      "id": "6050",
+      "nome": "Braum",
+      "vidas": 9
     }
   ],
   "vidas": [
@@ -56,6 +81,11 @@
       "id": "7737",
       "nome": "Termografia - Fundamentos - Módulo 1",
       "vidas": 8
+    },
+    {
+      "id": "88b9",
+      "nome": "Braum",
+      "vidas": 6
     }
   ],
   "banco": [
@@ -93,6 +123,16 @@
       "id": "b581",
       "nome": "Daniel Dimas de Souza",
       "valor": 7
+    },
+    {
+      "id": "3900",
+      "nome": "Braum",
+      "valor": 6
+    },
+    {
+      "id": "3718",
+      "nome": "Braum",
+      "valor": 8
     }
   ]
 }
